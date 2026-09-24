@@ -1,11 +1,15 @@
+import Header from './components/Header'
+import Nav from './components/Nav'
+
 function App() {
   return (
-    <div className="container py-5">
-      <h1>Mon Restaurant</h1>
-      <button className="btn btn-outline-primary">
-        <i className="bi bi-cart"></i> Test Bootstrap
-      </button>
-    </div>
+    <>
+      <Header />
+      <Nav />
+      <main className="container py-5">
+        <p>Le contenu arrive ici…</p>
+      </main>
+    </>
   )
 }
 
