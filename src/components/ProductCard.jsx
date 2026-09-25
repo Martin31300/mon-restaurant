@@ -2,7 +2,8 @@ import Tag from './Tag'
 import { useCart } from '../context/CartContext'
 
 function ProductCard({ product }) {
-      const { addToCart } = useCart()
+      const { items, addToCart, removeFromCart } = useCart()
+  const quantity = items.find((item) => item.id === product.id)?.quantity ?? 0
   return (
     <div className="card h-100">
       <img src={product.image} className="card-img-top" alt={product.title} />
@@ -22,13 +23,22 @@ function ProductCard({ product }) {
             <hr />
           </>
         )}
-        <button 
-            type="button" 
-            className="btn btn-outline-primary w-100 mt-auto"
+                <div className="d-grid gap-2 mt-auto">
+          <button
+            type="button"
+            className="btn btn-outline-primary"
             onClick={() => addToCart(product)}
-            >
-          Ajouter au panier
-        </button>
+          >
+            Ajouter au panier {quantity > 0 && <span className="badge bg-primary ms-1">{quantity}</span>}
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline-danger"
+            onClick={() => removeFromCart(product.id)}
+          >
+            Retirer du panier
+          </button>
+        </div>
       </div>
     </div>
   )

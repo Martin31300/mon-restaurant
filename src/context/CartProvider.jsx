@@ -1,31 +1,24 @@
-import { useState } from 'react'
+import { useReducer } from 'react'
 import { CartContext } from './CartContext'
+import { cartReducer, initialState } from './cartReducer'
 
 function CartProvider({ children }) {
-  const [items, setItems] = useState([])
+  const [state, dispatch] = useReducer(cartReducer, initialState)
 
   function addToCart(product) {
-    const existing = items.find((item) => item.id === product.id)
-
-    if (existing) {
-      setItems(
-        items.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-        )
-      )
-    } else {
-      setItems([
-        ...items,
-        { id: product.id, title: product.title, price: product.price, quantity: 1 },
-      ])
-    }
+    dispatch({ type: 'ADD', product })
   }
 
+  function removeFromCart(id) {
+    dispatch({ type: 'REMOVE', id })
+  }
+
+  const items = state.items
   const count = items.reduce((sum, item) => sum + item.quantity, 0)
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
   return (
-    <CartContext.Provider value={{ items, addToCart, count, total }}>
+    <CartContext.Provider value={{ items, addToCart, removeFromCart, count, total }}>
       {children}
     </CartContext.Provider>
   )
