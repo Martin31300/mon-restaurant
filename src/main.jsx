@@ -5,11 +5,14 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import './index.css'
 import App from './App.jsx'
 import FilterProvider from './context/FilterProvider'
+import CartProvider from './context/CartProvider'
 
 createRoot(document.getElementById('root')).render(
-    <StrictMode>
+      <StrictMode>
     <FilterProvider>
-      <App />
+      <CartProvider>
+        <App />
+      </CartProvider>
     </FilterProvider>
   </StrictMode>,
 )

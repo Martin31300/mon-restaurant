@@ -1,6 +1,8 @@
 import Tag from './Tag'
+import { useCart } from '../context/CartContext'
 
 function ProductCard({ product }) {
+      const { addToCart } = useCart()
   return (
     <div className="card h-100">
       <img src={product.image} className="card-img-top" alt={product.title} />
@@ -20,7 +22,11 @@ function ProductCard({ product }) {
             <hr />
           </>
         )}
-        <button type="button" className="btn btn-outline-primary w-100 mt-auto">
+        <button 
+            type="button" 
+            className="btn btn-outline-primary w-100 mt-auto"
+            onClick={() => addToCart(product)}
+            >
           Ajouter au panier
         </button>
       </div>
